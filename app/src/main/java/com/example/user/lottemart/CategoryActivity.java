@@ -2,10 +2,16 @@ package com.example.user.lottemart;
 
 import android.app.Activity;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class CategoryActivity extends Activity {
     private ImageButton fruitButton;
@@ -25,6 +31,43 @@ public class CategoryActivity extends Activity {
         himartButton = (ImageButton) findViewById(R.id.himartButton);
         foodButton = (ImageButton) findViewById(R.id.foodButton);
         kitchenButton = (ImageButton) findViewById(R.id.kitchenButton);
-        Log.d("Tag","First commit");
+        Log.d("Tag", "First commit");
+
+        fruitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        fashionButton.setOnClickListener(new View.OnClickListener(){
+           @Override
+            public void onClick(View v){
+
+           }
+        });
+        bookButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+        himartButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+        foodButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+        kitchenButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
     }
 }
