@@ -12,6 +12,22 @@
     android:background="#ffffff"
     android:gravity="center_horizontal">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText" />
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/imageButton"
+            android:src="@android:drawable/ic_search_category_default" />
+    </LinearLayout>
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

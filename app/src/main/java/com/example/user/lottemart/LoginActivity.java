@@ -2,7 +2,6 @@ package com.example.user.lottemart;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,12 +15,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by user on 2016-07-06.
@@ -29,15 +24,16 @@ import java.net.URLConnection;
 public class LoginActivity extends Activity {
     private EditText text_id;
     private EditText text_pw;
+    private Button loginBtn;
     private String id;
     private String pw;
-    private Button loginBtn;
     private Context context;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,18 +46,22 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id = text_id.getText().toString();
-                pw = text_pw.getText().toString();
-
                 String TAG = "DEVICE";
                 Log.i(TAG, "BRAND = " + Build.BRAND);
                 Log.i(TAG, "MODEL = " + Build.MODEL);
                 Log.i(TAG, "VERSION.SDK_INT = " + Build.VERSION.SDK_INT);
                 Log.i(TAG, "DEVICE" + Build.DEVICE);
+
+                id = text_id.getText().toString();
+                pw = text_pw.getText().toString();
+
+                IntroActivity.analyzer.saveLoginInfo(id,Build.DEVICE,Build.VERSION.SDK_INT,System.currentTimeMillis());
+                IntroActivity.analyzer.saveSearchInfo("사과",6);
+                IntroActivity.analyzer.saveActivityInfo(context);
+                IntroActivity.analyzer.savePurchasedInfo("아오리사과",System.currentTimeMillis());
+                IntroActivity.analyzer.sendData();
+
                 /*
-                Intent intent = new Intent(context, CategoryActivity.class);
-                startActivity(intent);
-                */
                 switch (v.getId()) {
                     case R.id.button:
                         new Thread(new Runnable() {
@@ -99,12 +99,23 @@ public class LoginActivity extends Activity {
                             }
                         }).start();
                         break;
-                }
+                }*/
             }
         });
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    public void onResume(){
+        super.onResume();
+        IntroActivity.analyzer.timeCheckerStart();
+    }
+
+    public void onPause(){
+        super.onPause();
+        IntroActivity.analyzer.timeCheckerEnd();
     }
 
     @Override
@@ -145,5 +156,9 @@ public class LoginActivity extends Activity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        IntroActivity.analyzer.connectionDestroy();
     }
 }
