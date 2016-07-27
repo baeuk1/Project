@@ -17,7 +17,7 @@ public class CategoryActivity extends Activity {
     private ImageButton foodButton;
     private ImageButton kitchenButton;
     private Context context;
-
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,46 +32,47 @@ public class CategoryActivity extends Activity {
         context = this;
         Log.d("Tag", "First commit");
 
+        intent = new Intent(context, ListActivity.class);
         fruitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ListActivity.class);
                 intent.putExtra("Keyword","과일");
+                startActivity(intent);
             }
         });
         fashionButton.setOnClickListener(new View.OnClickListener(){
            @Override
             public void onClick(View v){
-               Intent intent = new Intent(context, ListActivity.class);
                intent.putExtra("Keyword","잡화");
+               startActivity(intent);
            }
         });
         bookButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(context, ListActivity.class);
                 intent.putExtra("Keyword","문구");
+                startActivity(intent);
             }
         });
         himartButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(context, ListActivity.class);
                 intent.putExtra("Keyword","가전");
+                startActivity(intent);
             }
         });
         foodButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(context, ListActivity.class);
                 intent.putExtra("Keyword","식품");
+                startActivity(intent);
             }
         });
         kitchenButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(context, ListActivity.class);
                 intent.putExtra("Keyword","청소");
+                startActivity(intent);
             }
         });
     }
