@@ -29,11 +29,44 @@
             android:text="Cart"
             android:id="@+id/cartButton"/>
     </LinearLayout>
-    <ImageView
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/category_fruit"
-        android:layout_gravity="center_horizontal"/>
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageView0"/>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/textView0_name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/textView0_price"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/editText0"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:src="@drawable/cart"
+                android:id="@+id/imageButton0"/>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,7 +100,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:src="@drawable/abc_ic_star_black_36dp"
+                android:src="@drawable/cart"
                 android:id="@+id/imageButton1"/>
         </LinearLayout>
     </LinearLayout>
@@ -85,10 +118,12 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:id="@+id/textView2_name"/>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:id="@+id/textView2_price"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="120dp"
@@ -97,11 +132,13 @@
             android:gravity="right">
             <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:id="@+id/editText2"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:src="@drawable/abc_ic_star_black_36dp" />
+                android:src="@drawable/cart"
+                android:id="@+id/imageButton2"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -118,10 +155,12 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:id="@+id/textView3_name"/>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:id="@+id/textView3_price"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="120dp"
@@ -130,44 +169,13 @@
             android:gravity="right">
             <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:id="@+id/editText3"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:src="@drawable/abc_ic_star_black_36dp" />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/imageView4"/>
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="right">
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="40dp" />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/abc_ic_star_black_36dp" />
+                android:src="@drawable/cart"
+                android:id="@+id/imageButton3"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

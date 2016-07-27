@@ -23,7 +23,7 @@ public class IntroActivity extends Activity{
 
         URL url = null;
         try {
-            url = new URL("http://10.131.159.168:8038/test/TestServlet");
+            url = new URL("http://10.131.158.144:8038/test/AppServlet");
         } catch (MalformedURLException e) {
             Toast.makeText(this,"Wrong URL to connect to statistics server.",Toast.LENGTH_SHORT).show();
         }

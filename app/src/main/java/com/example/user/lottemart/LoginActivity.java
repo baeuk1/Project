@@ -2,6 +2,7 @@ package com.example.user.lottemart;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,51 +56,8 @@ public class LoginActivity extends Activity {
                 id = text_id.getText().toString();
                 pw = text_pw.getText().toString();
 
-                IntroActivity.analyzer.saveLoginInfo(id,Build.DEVICE,Build.VERSION.SDK_INT,System.currentTimeMillis());
-                IntroActivity.analyzer.saveSearchInfo("사과",6);
-                IntroActivity.analyzer.saveActivityInfo(context);
-                IntroActivity.analyzer.savePurchasedInfo("아오리사과",System.currentTimeMillis());
-                IntroActivity.analyzer.sendData();
-
-                /*
-                switch (v.getId()) {
-                    case R.id.button:
-                        new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    URL url = new URL("http://10.131.158.206:8038/test/TestServlet");
-                                    URLConnection connection = url.openConnection();
-                                    String inputString = id + "/" + pw;
-                                    //inputString = URLEncoder.encode(inputString, "UTF-8");
-                                    Log.d("inputString", inputString);
-                                    connection.setDoOutput(true);
-                                    OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-                                    out.write(inputString);
-                                    out.close();
-
-                                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                                    String returnString = "";
-                                    String loginOk = "";
-                                    while ((returnString = in.readLine()) != null) {
-                                        loginOk = returnString;
-                                    }
-
-                                    Log.d("Tag", loginOk);
-                                    if (loginOk != "OK") {
-                                        Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(context, CategoryActivity.class);
-                                        startActivity(intent);
-                                    }
-                                    in.close();
-                                } catch (Exception e) {
-                                    Log.d("Exception", e.toString());
-                                }
-                            }
-                        }).start();
-                        break;
-                }*/
+                Intent intent = new Intent(context,CategoryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -110,12 +68,22 @@ public class LoginActivity extends Activity {
 
     public void onResume(){
         super.onResume();
-        IntroActivity.analyzer.timeCheckerStart();
+        long temp = IntroActivity.analyzer.timeCheckerStart();
     }
 
     public void onPause(){
         super.onPause();
+        IntroActivity.analyzer.saveLoginInfo(id,Build.DEVICE,Build.VERSION.SDK_INT,IntroActivity.analyzer.getDate());
+        IntroActivity.analyzer.saveSearchInfo("사과",1);
+        IntroActivity.analyzer.saveSearchInfo("포도",2);
+        IntroActivity.analyzer.saveSearchInfo("복숭아",3);
+        IntroActivity.analyzer.saveSearchInfo("수박",4);
+        IntroActivity.analyzer.saveSearchInfo("참외",5);
+        IntroActivity.analyzer.savePurchasedInfo("아오리사과",20,1000,"과일",IntroActivity.analyzer.getDate());
+        IntroActivity.analyzer.savePurchasedInfo("거봉",5,2000,"과일",IntroActivity.analyzer.getDate());
         IntroActivity.analyzer.timeCheckerEnd();
+        IntroActivity.analyzer.saveActivityInfo(context);
+        IntroActivity.analyzer.sendData();
     }
 
     @Override
