@@ -16,6 +16,7 @@ import java.net.URL;
  */
 public class IntroActivity extends Activity{
     public static UserAnalysisSDK analyzer;
+    public static ProductDataController productDataController;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class IntroActivity extends Activity{
             Toast.makeText(this,"Wrong URL to connect to statistics server.",Toast.LENGTH_SHORT).show();
         }
         analyzer = new UserAnalysisSDK(url,this);
+        productDataController = new ProductDataController();
         InnerClassHandler noLeakHandler = new InnerClassHandler(this);
         noLeakHandler.sendEmptyMessageDelayed(0, 2000); // 2초 뒤에 메시지 전달
     }

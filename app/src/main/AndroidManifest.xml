@@ -30,6 +30,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".CategoryActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".GoodsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PurchasedActivity"
+            android:screenOrientation="portrait"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -38,14 +46,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".GoodsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CartActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PurchasedActivity"
-            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

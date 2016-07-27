@@ -18,62 +18,95 @@ public class ProductDataController {
         productList = new Product[NUMOFITEMS];
         productDataLoader();
     }
+    public int getImage(String itemKey){
+        for(int i=0; i<NUMOFITEMS; i++)
+            if(productList[i].getName().equals(itemKey))
+                return productList[i].getImage();
+        return -1;
+    }
+    public int getPrice(String itemKey){
+        for(int i=0; i<NUMOFITEMS; i++)
+            if (productList[i].getName().equals(itemKey))
+                return productList[i].getPrice();
+        return -1;
+    }
     public String[] getNames(int category){
         String[] productNames = new String[NUMOFITEMS];
         int count = 0;
-        for(int i=0; i<NUMOFITEMS; i++)
-            if(productList[i].getCategory() == categoryNames[category])
-                productNames[count++] = productList[i].getName();
+        try {
+            for (int i = 0; i < NUMOFITEMS; i++)
+                if (productList[i].getCategory() == categoryNames[category])
+                    productNames[count++] = productList[i].getName();
+        } catch(NullPointerException e){
+        }
         return productNames;
     }
     public String[] getNames(String keyword){
         String[] productNames = new String[NUMOFITEMS];
         int count = 0;
-        for(int i=0; i<NUMOFITEMS; i++)
-            if(productList[i].getName().contains(keyword))
-                productNames[count++] = productList[i].getName();
+        try {
+            for (int i = 0; i < NUMOFITEMS; i++)
+                if (productList[i].getName().contains(keyword))
+                    productNames[count++] = productList[i].getName();
+        } catch(NullPointerException e){
+        }
         return productNames;
     }
     public int[] getPrices(int category){
         int[] productPrices = new int[NUMOFITEMS];
         int count = 0;
-        for(int i=0; i<NUMOFITEMS; i++)
-            if(productList[i].getCategory() == categoryNames[category])
-                productPrices[count++] = productList[i].getPrice();
+        try {
+            for (int i = 0; i < NUMOFITEMS; i++)
+                if (productList[i].getCategory() == categoryNames[category])
+                    productPrices[count++] = productList[i].getPrice();
+        } catch(NullPointerException e){
+        }
         return productPrices;
     }
     public int[] getPrices(String keyword){
         int[] productPrices = new int[NUMOFITEMS];
         int count = 0;
-        for(int i=0; i<NUMOFITEMS; i++){
-            if(productList[i].getName().contains(keyword))
-                productPrices[count++] = productList[i].getPrice();
+        try {
+            for (int i = 0; i < NUMOFITEMS; i++) {
+                if (productList[i].getName().contains(keyword))
+                    productPrices[count++] = productList[i].getPrice();
+            }
+        } catch(NullPointerException e){
         }
         return productPrices;
     }
     public int[] getImageViews(int category){
         int[] productImages = new int[NUMOFITEMS];
         int count = 0;
-        for(int i=0; i<NUMOFITEMS; i++)
-            if(productList[i].getCategory() == categoryNames[category])
-                productImages[count++] = productList[i].getImage();
+        try {
+            for (int i = 0; i < NUMOFITEMS; i++)
+                if (productList[i].getCategory() == categoryNames[category])
+                    productImages[count++] = productList[i].getImage();
+        } catch (NullPointerException e){
+        }
         return productImages;
     }
     public int[] getImageViews(String keyword){
         int[] productImages = new int[NUMOFITEMS];
         int count = 0;
-        for(int i=0; i<NUMOFITEMS; i++){
-            if(productList[i].getName().contains(keyword))
-                productImages[count++] = productList[i].getImage();
+        try {
+            for (int i = 0; i < NUMOFITEMS; i++) {
+                if (productList[i].getName().contains(keyword))
+                    productImages[count++] = productList[i].getImage();
+            }
+        } catch(NullPointerException e){
         }
         return productImages;
     }
     public String[] getCategories(String keyword){
         String[] productCategories = new String[NUMOFITEMS];
         int count = 0;
-        for(int i=0; i<NUMOFITEMS; i++){
-            if(productList[i].getName().contains(keyword))
-                productCategories[count++] = productList[i].getCategory();
+        try {
+            for (int i = 0; i < NUMOFITEMS; i++) {
+                if (productList[i].getName().contains(keyword))
+                    productCategories[count++] = productList[i].getCategory();
+            }
+        } catch(NullPointerException e){
         }
         return productCategories;
     }
@@ -99,7 +132,7 @@ public class ProductDataController {
         productList[15] = new Product("에어컨",700000,R.drawable.airconditioner,"가전");
         productList[16] = new Product("신라면",600,R.drawable.ramen,"식품");
         productList[17] = new Product("우유",2400,R.drawable.milk,"식품");
-        productList[17] = new Product("참치통조림",2000,R.drawable.tuna,"식품");
+        productList[18] = new Product("참치통조림",2000,R.drawable.tuna,"식품");
         productList[19] = new Product("오렌지주스",8000,R.drawable.juice,"식품");
         productList[20] = new Product("주방세제",6000,R.drawable.kitchenwasher,"청소");
         productList[21] = new Product("고무장갑",3000,R.drawable.rubbergloves,"청소");

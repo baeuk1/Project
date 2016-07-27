@@ -68,19 +68,17 @@ public class LoginActivity extends Activity {
 
     public void onResume(){
         super.onResume();
-        long temp = IntroActivity.analyzer.timeCheckerStart();
+        IntroActivity.analyzer.timeCheckerStart();
     }
 
     public void onPause(){
         super.onPause();
         IntroActivity.analyzer.saveLoginInfo(id,Build.DEVICE,Build.VERSION.SDK_INT,IntroActivity.analyzer.getDate());
-        IntroActivity.analyzer.saveSearchInfo("사과",1);
-        IntroActivity.analyzer.saveSearchInfo("포도",2);
-        IntroActivity.analyzer.saveSearchInfo("복숭아",3);
-        IntroActivity.analyzer.saveSearchInfo("수박",4);
-        IntroActivity.analyzer.saveSearchInfo("참외",5);
-        IntroActivity.analyzer.savePurchasedInfo("아오리사과",20,1000,"과일",IntroActivity.analyzer.getDate());
-        IntroActivity.analyzer.savePurchasedInfo("거봉",5,2000,"과일",IntroActivity.analyzer.getDate());
+        IntroActivity.analyzer.saveSearchInfo("우유",4);
+        IntroActivity.analyzer.saveSearchInfo("바지",2);
+        IntroActivity.analyzer.saveSearchInfo("화장품",3);
+        IntroActivity.analyzer.savePurchasedInfo("유기농사과",20,1000,"과일",IntroActivity.analyzer.getDate());
+        IntroActivity.analyzer.savePurchasedInfo("클렌징폼",5,2000,"잡화",IntroActivity.analyzer.getDate());
         IntroActivity.analyzer.timeCheckerEnd();
         IntroActivity.analyzer.saveActivityInfo(context);
         IntroActivity.analyzer.sendData();

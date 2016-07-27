@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:layout_width="240dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:id="@+id/searchBar" />
         <ImageButton
@@ -45,11 +45,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView0_name"/>
+                android:id="@+id/textView0_name"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView0_price"/>
+                android:id="@+id/textView0_price"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="120dp"
@@ -57,9 +61,10 @@
             android:orientation="vertical"
             android:gravity="right">
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:id="@+id/editText0"/>
+                android:id="@+id/editText0"
+                android:textAlignment="center" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -82,11 +87,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView1_name"/>
+                android:id="@+id/textView1_name"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView1_price"/>
+                android:id="@+id/textView1_price"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="120dp"
@@ -94,9 +103,10 @@
             android:orientation="vertical"
             android:gravity="right">
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:id="@+id/editText1"/>
+                android:id="@+id/editText1"
+                android:textAlignment="center" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -119,11 +129,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView2_name"/>
+                android:id="@+id/textView2_name"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView2_price"/>
+                android:id="@+id/textView2_price"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="120dp"
@@ -131,9 +145,10 @@
             android:orientation="vertical"
             android:gravity="right">
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:id="@+id/editText2"/>
+                android:id="@+id/editText2"
+                android:textAlignment="center" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -156,21 +171,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView3_name"/>
+                android:id="@+id/textView3_name"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/textView3_price"/>
+                android:id="@+id/textView3_price"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="right">
+            android:gravity="right"
+            android:layout_gravity="center_vertical">
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:id="@+id/editText3"/>
+                android:id="@+id/editText3"
+                android:textAlignment="center" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"

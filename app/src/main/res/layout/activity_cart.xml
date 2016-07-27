@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:layout_width="240dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:id="@+id/searchBar" />
         <ImageButton
@@ -39,17 +39,53 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:id="@+id/imageView0"/>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView0_name"/>
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView0_price"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+            <NumberPicker
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/numberPicker0"/>
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:id="@+id/textView_total0"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:id="@+id/imageView1"/>
         <LinearLayout
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:id="@+id/textView1_name"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:id="@+id/textView1_price"/>
         </LinearLayout>
@@ -60,12 +96,90 @@
             android:gravity="right">
             <NumberPicker
                 android:layout_width="45dp"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
                 android:id="@+id/numberPicker1"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
                 android:id="@+id/textView_total1"/>
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageView2"/>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView2_name"/>
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView2_price"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+            <NumberPicker
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/numberPicker2"/>
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:id="@+id/textView_total2"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageView3"/>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView3_name"/>
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:id="@+id/textView3_price"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+            <NumberPicker
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/numberPicker3"/>
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:id="@+id/textView_total3"/>
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_gravity="right"
+        android:text="결제"
+        android:id="@+id/buyButton"/>
 </LinearLayout>
