@@ -32,6 +32,7 @@ public class UserAnalysisSDK {
 
     private JSONArray activityName;
     private JSONArray activityTime;
+    private JSONArray purchasedNum;
     private JSONArray purchasedName;
     private JSONArray purchasedCount;
     private JSONArray purchasedPrice;
@@ -46,6 +47,7 @@ public class UserAnalysisSDK {
     private URLConnection urlConnection = null;
     private ObjectOutputStream objectOutputStream;
     private ConnectionThread connectionThread;
+    private TimerThread timerThread;
 
     private boolean sendingFlag = false;
 
@@ -64,12 +66,15 @@ public class UserAnalysisSDK {
 
                     String temp = infoCarrier.toString();
                     Log.d("Baeuk", temp);
-                    objectOutputStream.writeObject(temp);
+                    write(temp);
                     urlConnection.getInputStream();
                     sendingFlag = false;
                     freeMemory();
                 }
             }
+        }
+        private void write(String json) throws IOException{
+            objectOutputStream.writeObject(json);
         }
         @Override
         public void run(){
@@ -84,12 +89,30 @@ public class UserAnalysisSDK {
             }
         }
     }
-
+    class TimerThread extends Thread{
+        long startTime;
+        long currentTime;
+        public TimerThread(){
+            startTime = System.currentTimeMillis();
+        }
+        @Override
+        public void run(){
+            while(true){
+                currentTime = System.currentTimeMillis();
+            }
+        }
+        public boolean isTimeOver(int time){
+            if((currentTime - startTime) > time) return true;
+            else return false;
+        }
+    }
     public UserAnalysisSDK(URL url, Context callerContext){
         this.callerContext = callerContext;
         memoryAllocate();
         connectionThread = new ConnectionThread(url);
         connectionThread.start();
+        timerThread = new TimerThread();
+        timerThread.start();
     }
     public JSONObject getJSONObject(){
         return infoCarrier;
@@ -104,6 +127,7 @@ public class UserAnalysisSDK {
             */
             activityName = new JSONArray();
             activityTime = new JSONArray();
+            purchasedNum = new JSONArray();
             purchasedName = new JSONArray();
             purchasedCount = new JSONArray();
             purchasedPrice = new JSONArray();
@@ -139,6 +163,7 @@ public class UserAnalysisSDK {
             searchCount.remove(0);
         }
         for(int i=0; i<purchasedLength; i++){
+            purchasedNum.remove(0);
             purchasedName.remove(0);
             purchasedCount.remove(0);
             purchasedPrice.remove(0);
@@ -149,13 +174,18 @@ public class UserAnalysisSDK {
         // ★ 기존 앱 초기 화면의 OnDestroy()에서 호출
         // ★ SDK의 isOverSize(int size) 가 참인 경우 호출
         sendingFlag = true;
+        Log.d("Baeuk",infoCarrier.toString());
         return true;
     }
     public boolean connectionDestroy(){
         // ★ 앱 종료시 호출
+        if(quitThread()) return true;
+        else return false;
+    }
+    private boolean quitThread(){
         try {
             objectOutputStream.close();
-            sendingFlag = true;
+            connectionThread.interrupt();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -172,11 +202,16 @@ public class UserAnalysisSDK {
         finishTime = System.currentTimeMillis();
         return finishTime;
     }
-    public boolean saveLoginInfo(String userID, String deviceName, int androidVersion, String loginTime){
+    public boolean saveLoginInfo(String userID, String gender, int age, String area, String job,
+                                 String deviceName, int androidVersion, String loginTime){
         // ★ Login Button의 OnclickListener() 혹은 Login 직후의 Activity의 OnCreate()에 삽입
         // * APP 시작시 미리 로그인 되어있는 경우, 최초의 Activity의 OnCreate()에 삽입
         try {
             infoCarrier.put("userID",userID);
+            infoCarrier.put("gender",gender);
+            infoCarrier.put("age",age);
+            infoCarrier.put("area",area);
+            infoCarrier.put("job",job);
             infoCarrier.put("deviceName",deviceName);
             infoCarrier.put("androidVersion",androidVersion);
             infoCarrier.put("loginTime",loginTime);
@@ -186,7 +221,6 @@ public class UserAnalysisSDK {
         }
         return true;
     }
-
     public boolean saveActivityInfo(Context context){
         int stayingTime = (int) (finishTime - startTime) / 1000;
         if(stayingTime < 0 ) stayingTime = 0;
@@ -201,10 +235,10 @@ public class UserAnalysisSDK {
         }
         return true;
     }
-    public boolean saveActivityInfo(Context context, String keyword){
+    public boolean saveActivityInfo(Context context, int itemNum){
         int stayingTime = (int) (finishTime - startTime) / 1000;
         if(stayingTime < 0) stayingTime = 0;
-        activityName.put(context.getClass().getSimpleName()+"_"+keyword);
+        activityName.put(context.getClass().getSimpleName()+"_"+itemNum);
         activityTime.put(stayingTime);
         try {
             infoCarrier.put("Activity_Name",activityName);
@@ -228,14 +262,16 @@ public class UserAnalysisSDK {
         }
         return true;
     }
-    public boolean savePurchasedInfo(String itemName, int count, int price, String category, String time){
+    public boolean savePurchasedInfo(int itemNum, String itemName, int count, int price, String category, String time){
         // ★ 구매 결과 Activity에 삽입
+        purchasedNum.put(itemNum);
         purchasedName.put(itemName);
         purchasedCount.put(count);
         purchasedPrice.put(price);
         purchasedCategory.put(category);
         try {
-            infoCarrier.put("purchased_Time",time);
+            infoCarrier.put("Purchased_Time",time);
+            infoCarrier.put("Purchased_Num",purchasedNum);
             infoCarrier.put("Purchased_Name",purchasedName);
             infoCarrier.put("Purchased_Count", purchasedCount);
             infoCarrier.put("Purchased_Price",purchasedPrice);

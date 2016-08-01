@@ -3,89 +3,69 @@ package com.example.user.lottemart;
 /**
  * Created by user on 2016-07-11.
  */
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  * Created by user on 2016-07-06.
  */
 public class CustomerDataLoader {
-    private static final int MAXCUSTOMER = 100;
-    private Context context;
-    private Customer[] customers;
-    private int numOfCustomers = 0;
-    private String tempStr; // before parse
-    private String[] customerData; // Data of one customer before parsing (ex : kim26#1234#male#32)
-    private String[] oneCustomer; // after parse
-    private InputStream fis;
-    private int idIndex = -1;
+    private final int maxCustomer = 240;
+    private Customer[] customerList;
 
-    public CustomerDataLoader(Context context, InputStream fis){
-        this.context = context;
-        this.fis = fis;
-        customers = new Customer[MAXCUSTOMER];
-        customerData = new String[MAXCUSTOMER];
-        oneCustomer = new String[Customer.numOfProperty];
-        Log.d("Baeuk", "created");
-        parser(context);
+    public CustomerDataLoader(){
+        customerList = new Customer[maxCustomer];
+        getCustomerDatas();
+    }
+
+    private void getCustomerDatas(){
+        for(int i=0; i<2; i++)
+            for(int j=0; j<6; j++)
+                for(int k=0; k<5; k++)
+                    for(int l=0; l<4; l++){
+                        String id = "id"+String.valueOf(i+1)+String.valueOf(j+1)+String.valueOf(k+1)+String.valueOf(l+1);
+                        String gender = intToBoolean(i) ? "여" : "남";
+                        int age = (j+1)*10 + (i + k + l) % 10;
+                        String area;
+                        String job;
+                        switch(k){
+                            case 0 : area = "서울"; break;
+                            case 1 : area = "경기"; break;
+                            case 2 : area = "강원"; break;
+                            case 3 : area = "전라"; break;
+                            case 4 : area = "경상"; break;
+                            default: area = ""; break;
+                        }
+                        switch (l){
+                            case 0 : job = "학생"; break;
+                            case 1 : job = "회사원"; break;
+                            case 2 : job = "공무원"; break;
+                            case 3 : job = "자영업"; break;
+                            default: job = ""; break;
+                        }
+                        int index = i*120 + j*20 + k*4 + l;
+                        customerList[index] = new Customer(id,gender,age,area,job);
+                    }
+    }
+    private boolean intToBoolean(int i){
+        if(i==0) return false;
+        else return true;
     }
     public int isIdValid(String id){
-        for(int i=0; i<numOfCustomers; i++){
-            if(id.equals(customers[i].getId())){
-                idIndex = i;
-                return idIndex;
-            }
+        for(int i=0; i< maxCustomer; i++){
+            if(customerList[i].getId().equals(id)) return i;
         }
         return -1;
     }
-    public boolean isPwCorrect(String pw, int idIndex){
-        if(idIndex == -1) return false;
-        if(pw.equals(customers[idIndex].getPw())) return true;
-        else return false;
+    public String getGender(int customerIndex){
+        return customerList[customerIndex].getGender();
     }
-    public int getIdIndex(){
-        return idIndex;
+    public int getAge(int customerIndex){
+        return customerList[customerIndex].getAge();
     }
-    private int parser(Context context){
-        try {
-            InputStreamReader inputStreamReader = new InputStreamReader(fis,"UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-            int i=0;
-            while((tempStr = bufferedReader.readLine())!=null){
-
-                customerData[numOfCustomers++] = tempStr;
-                Log.d("efg", customerData[i++]);
-            }
-
-            fis.close();
-            bufferedReader.close();
-
-        } catch (IOException e){
-            Toast.makeText(context,"Failed to Load File",Toast.LENGTH_SHORT).show();
-        }
-        for(int i=0; i<numOfCustomers; i++) {
-            oneCustomer = customerData[i].split("#");
-            Log.d("customer",oneCustomer[0]);
-            /*
-            customers[i] = new Customer();
-            customers[i].setId(oneCustomer[0]);
-            customers[i].setPw(oneCustomer[1]);
-            customers[i].setName(oneCustomer[2]);
-            customers[i].setGender(oneCustomer[3]);
-            customers[i].setAge(Integer.parseInt(oneCustomer[4]));
-            customers[i].setRegion(oneCustomer[5]);
-            customers[i].setJob(oneCustomer[6]);
-            customers[i].setJoinDate(Date.valueOf(oneCustomer[7]));
-            customers[i].setLevel(oneCustomer[8]);
-            */
-        }
-        return numOfCustomers;
+    public String getArea(int customerIndex){
+        return customerList[customerIndex].getArea();
+    }
+    public String getJob(int customerIndex){
+        return customerList[customerIndex].getJob();
     }
 }

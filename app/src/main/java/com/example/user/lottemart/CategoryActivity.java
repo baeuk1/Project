@@ -31,6 +31,7 @@ public class CategoryActivity extends Activity {
         cartIntent = new Intent(context, com.example.user.lottemart.CartActivity.class);
         setFindViewById();
         setOnClickListener();
+        IntroActivity.analyzer.saveActivityInfo(context);
     }
     private void setFindViewById(){
         searchBar = (EditText) findViewById(R.id.searchBar);

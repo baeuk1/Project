@@ -1,53 +1,28 @@
 package com.example.user.lottemart;
 
-import java.util.Date;
-
 /**
  * Created by user on 2016-07-11.
  */
 public class Customer {
-    public static int numOfProperty = 9;
+    public static int numOfProperty = 5;
     private String id;
-    private String pw;
-    private String name;
     private String gender;
     private int age;
-    private String region;
+    private String area;
     private String job;
-    private Date joinDate;
-    private String level;
 
-    public void setId(String id){
+    public Customer(String id, String gender, int age, String area, String job){
         this.id = id;
-    }
-    public void setPw(String pw){
-        this.pw = pw;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-    public void setGender(String gender){
         this.gender = gender;
-    }
-    public void setAge(int age){
         this.age = age;
-    }
-    public void setRegion(String region){
-        this.region = region;
-    }
-    public void setJob(String job){
+        this.area = area;
         this.job = job;
-    }
-    public void setJoinDate(Date joinDate){
-        this.joinDate = joinDate;
-    }
-    public void setLevel(String level){
-        this.level = level;
     }
     public String getId(){
         return id;
     }
-    public String getPw(){
-        return pw;
-    }
+    public String getGender() { return gender; }
+    public int getAge() { return age; }
+    public String getArea() { return area; }
+    public String getJob() { return job; }
 }

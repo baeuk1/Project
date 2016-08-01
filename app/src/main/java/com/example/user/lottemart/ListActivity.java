@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -43,6 +44,7 @@ public class ListActivity extends Activity {
     private ImageButton[] putCartButtons;
 
     private String[] categoryNames;
+    private String[] productCategories;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -58,15 +60,15 @@ public class ListActivity extends Activity {
         textViews_name = new TextView[MAXITEMS];
         textViews_price = new TextView[MAXITEMS];
         editTexts = new EditText[MAXITEMS];
-        putCartButtons = new ImageButton[MAXITEMS];
         productImages = new int[MAXITEMS];
         productNames = new String[MAXITEMS];
         productPrices = new int[MAXITEMS];
+        productCategories = new String[MAXITEMS];
+        putCartButtons = new ImageButton[MAXITEMS];
         categoryNames = IntroActivity.productDataController.getCategoryNames();
         goodsIntent = new Intent(context, com.example.user.lottemart.GoodsActivity.class);
         cartIntent = new Intent(context, com.example.user.lottemart.CartActivity.class);
         setFindViewById();
-        setOnClickListener();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -78,6 +80,7 @@ public class ListActivity extends Activity {
         thisIntent = getIntent();
         keyword = thisIntent.getExtras().getString("Keyword");
         itemDataLoad();
+        setOnClickListener();
     }
 
     private void itemDataLoad() {
@@ -85,6 +88,7 @@ public class ListActivity extends Activity {
             productImages[i] = 0;
             productNames[i] = "";
             productPrices[i] = 0;
+            productCategories[i] = "";
         }
         if (keyword.equals("과일") || keyword.equals("잡화") || keyword.equals("문구")
                 || keyword.equals("가전") || keyword.equals("식품") || keyword.equals("청소")) {
@@ -96,12 +100,17 @@ public class ListActivity extends Activity {
                 productImages = IntroActivity.productDataController.getImageViews(category);
                 productNames = IntroActivity.productDataController.getNames(category);
                 productPrices = IntroActivity.productDataController.getPrices(category);
+                productCategories = IntroActivity.productDataController.getCategories(category);
             }
         } else {
             productImages = IntroActivity.productDataController.getImageViews(keyword);
             productNames = IntroActivity.productDataController.getNames(keyword);
             productPrices = IntroActivity.productDataController.getPrices(keyword);
+            productCategories = IntroActivity.productDataController.getCategories(keyword);
         }
+
+        IntroActivity.analyzer.saveSearchInfo(keyword,IntroActivity.productDataController.getSearchCount());
+
         for (int i = 0; i < MAXITEMS; i++) {
             if (productImages[i] != 0) {
                 imageViews[i].setImageResource(productImages[i]);
@@ -168,6 +177,25 @@ public class ListActivity extends Activity {
                 startActivity(cartIntent);
             }
         });
+        for(int i=0; i<MAXITEMS; i++) putCartButtons[i].setOnClickListener(new SetOnclickListener(i));
+
+    }
+
+    public class SetOnclickListener implements View.OnClickListener{
+        int index;
+        SetOnclickListener(int index){
+            this.index = index;
+        }
+        @Override
+        public void onClick(View v){
+            String itemName = textViews_name[index].getText().toString();
+            try {
+                IntroActivity.productDataController.putItemIntoCart(productImages[index], itemName,
+                        Integer.parseInt(textViews_price[index].getText().toString()), Integer.parseInt(editTexts[index].getText().toString()),productCategories[index]);
+            } catch(NumberFormatException e){
+                Toast.makeText(context,"개수를 정확히 입력해주세요.",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

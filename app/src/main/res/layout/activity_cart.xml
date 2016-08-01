@@ -41,31 +41,47 @@
             android:layout_height="80dp"
             android:id="@+id/imageView0"/>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView0_name"/>
+                android:id="@+id/textView0_name"
+                android:layout_marginLeft="20dp"/>
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView0_price"/>
+                android:id="@+id/textView0_price"
+                android:layout_marginLeft="20dp"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="right">
-            <NumberPicker
-                android:layout_width="45dp"
+            <EditText
+                android:layout_width="60dp"
                 android:layout_height="45dp"
-                android:id="@+id/numberPicker0"/>
+                android:id="@+id/editNum0"
+                android:textAlignment="center" />
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/textView_total0"/>
+                android:id="@+id/textView_total0"
+                android:layout_gravity="right"
+                android:textAlignment="gravity"
+                android:textColor="@color/accent_material_light" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="45dp"
+                android:text="변경"
+                android:id="@+id/change0"
+                android:textSize="12dp" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -77,31 +93,47 @@
             android:layout_height="80dp"
             android:id="@+id/imageView1"/>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView1_name"/>
+                android:id="@+id/textView1_name"
+                android:layout_marginLeft="20dp"/>
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView1_price"/>
+                android:id="@+id/textView1_price"
+                android:layout_marginLeft="20dp"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="right">
-            <NumberPicker
-                android:layout_width="45dp"
+            <EditText
+                android:layout_width="60dp"
                 android:layout_height="45dp"
-                android:id="@+id/numberPicker1"/>
+                android:id="@+id/editNum1"
+                android:textAlignment="center" />
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/textView_total1"/>
+                android:id="@+id/textView_total1"
+                android:layout_gravity="right"
+                android:textAlignment="gravity"
+                android:textColor="@color/accent_material_light" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="45dp"
+                android:text="변경"
+                android:id="@+id/change1"
+                android:textSize="12dp" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -113,31 +145,47 @@
             android:layout_height="80dp"
             android:id="@+id/imageView2"/>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView2_name"/>
+                android:id="@+id/textView2_name"
+                android:layout_marginLeft="20dp"/>
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView2_price"/>
+                android:id="@+id/textView2_price"
+                android:layout_marginLeft="20dp"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="right">
-            <NumberPicker
-                android:layout_width="45dp"
+            <EditText
+                android:layout_width="60dp"
                 android:layout_height="45dp"
-                android:id="@+id/numberPicker2"/>
+                android:id="@+id/editNum2"
+                android:textAlignment="center" />
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/textView_total2"/>
+                android:id="@+id/textView_total2"
+                android:layout_gravity="right"
+                android:textAlignment="gravity"
+                android:textColor="@color/accent_material_light" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="45dp"
+                android:text="변경"
+                android:id="@+id/change2"
+                android:textSize="12dp" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -149,33 +197,56 @@
             android:layout_height="80dp"
             android:id="@+id/imageView3"/>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView3_name"/>
+                android:id="@+id/textView3_name"
+                android:layout_marginLeft="20dp"/>
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:id="@+id/textView3_price"/>
+                android:id="@+id/textView3_price"
+                android:layout_marginLeft="20dp"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="right">
-            <NumberPicker
-                android:layout_width="45dp"
+            <EditText
+                android:layout_width="60dp"
                 android:layout_height="45dp"
-                android:id="@+id/numberPicker3"/>
+                android:id="@+id/editNum3"
+                android:textAlignment="center" />
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/textView_total3"/>
+                android:id="@+id/textView_total3"
+                android:layout_gravity="right"
+                android:textAlignment="gravity"
+                android:textColor="@color/accent_material_light" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="45dp"
+                android:text="변경"
+                android:id="@+id/change3"
+                android:textSize="12dp" />
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:id="@+id/textView_whole"
+        android:layout_gravity="right"
+        android:textColor="@color/common_signin_btn_default_background" />
     <Button
         android:layout_width="80dp"
         android:layout_height="45dp"

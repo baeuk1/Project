@@ -28,17 +28,23 @@ public class LoginActivity extends Activity {
     private Button loginBtn;
     private String id;
     private String pw;
+    private String gender;
+    private int age;
+    private String area;
+    private String job;
     private Context context;
+
+    private CustomerDataLoader customerDataLoader;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        customerDataLoader = new CustomerDataLoader();
         text_id = (EditText) findViewById(R.id.editText_id);
         text_pw = (EditText) findViewById(R.id.editText_pw);
         loginBtn = (Button) findViewById(R.id.button);
@@ -47,17 +53,25 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String TAG = "DEVICE";
-                Log.i(TAG, "BRAND = " + Build.BRAND);
-                Log.i(TAG, "MODEL = " + Build.MODEL);
-                Log.i(TAG, "VERSION.SDK_INT = " + Build.VERSION.SDK_INT);
-                Log.i(TAG, "DEVICE" + Build.DEVICE);
-
                 id = text_id.getText().toString();
                 pw = text_pw.getText().toString();
 
-                Intent intent = new Intent(context,CategoryActivity.class);
-                startActivity(intent);
+                int customerIndex = customerDataLoader.isIdValid(id);
+                Log.d("Baeuk","customerIndex"+customerIndex);
+                if(customerIndex >= 0){
+                    gender = customerDataLoader.getGender(customerIndex);
+                    age = customerDataLoader.getAge(customerIndex);
+                    area = customerDataLoader.getArea(customerIndex);
+                    job = customerDataLoader.getJob(customerIndex);
+                    IntroActivity.analyzer.saveLoginInfo(id,gender,age,area,job,Build.DEVICE,Build.VERSION.SDK_INT,IntroActivity.analyzer.getDate());
+                    IntroActivity.analyzer.timeCheckerEnd();
+                    IntroActivity.analyzer.saveActivityInfo(context);
+
+                    Intent intent = new Intent(context,CategoryActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(context,"아이디를 확인하세요",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -69,19 +83,6 @@ public class LoginActivity extends Activity {
     public void onResume(){
         super.onResume();
         IntroActivity.analyzer.timeCheckerStart();
-    }
-
-    public void onPause(){
-        super.onPause();
-        IntroActivity.analyzer.saveLoginInfo(id,Build.DEVICE,Build.VERSION.SDK_INT,IntroActivity.analyzer.getDate());
-        IntroActivity.analyzer.saveSearchInfo("우유",4);
-        IntroActivity.analyzer.saveSearchInfo("바지",2);
-        IntroActivity.analyzer.saveSearchInfo("화장품",3);
-        IntroActivity.analyzer.savePurchasedInfo("유기농사과",20,1000,"과일",IntroActivity.analyzer.getDate());
-        IntroActivity.analyzer.savePurchasedInfo("클렌징폼",5,2000,"잡화",IntroActivity.analyzer.getDate());
-        IntroActivity.analyzer.timeCheckerEnd();
-        IntroActivity.analyzer.saveActivityInfo(context);
-        IntroActivity.analyzer.sendData();
     }
 
     @Override

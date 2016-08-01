@@ -24,12 +24,12 @@ public class IntroActivity extends Activity{
 
         URL url = null;
         try {
-            url = new URL("http://10.131.158.144:8038/test/AppServlet");
+            url = new URL("http://10.131.158.177:8038/test/AppServlet");
         } catch (MalformedURLException e) {
             Toast.makeText(this,"Wrong URL to connect to statistics server.",Toast.LENGTH_SHORT).show();
         }
         analyzer = new UserAnalysisSDK(url,this);
-        productDataController = new ProductDataController();
+        productDataController = new ProductDataController(this);
         InnerClassHandler noLeakHandler = new InnerClassHandler(this);
         noLeakHandler.sendEmptyMessageDelayed(0, 2000); // 2초 뒤에 메시지 전달
     }
