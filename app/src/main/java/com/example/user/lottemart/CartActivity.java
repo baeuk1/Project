@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,6 +62,17 @@ public class CartActivity extends Activity {
         setFindViewById();
         setOnClickListener();
         loadCartItem();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        IntroActivity.analyzer.timeCheckerStart(context);
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        IntroActivity.analyzer.timeCheckerEnd(context);
+        IntroActivity.analyzer.saveActivityInfo(context);
     }
     private void setFindViewById(){
         searchBar = (EditText) findViewById(R.id.searchBar);

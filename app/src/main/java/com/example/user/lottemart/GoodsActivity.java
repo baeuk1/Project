@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ public class GoodsActivity extends Activity {
     private ImageButton putCartButton;
 
     private String itemKey;
+    private int itemNum;
     private int itemPrice;
     private int itemImage;
     private String itemCategory;
@@ -45,6 +47,7 @@ public class GoodsActivity extends Activity {
         setFindViewById();
         setOnClickListener();
         itemKey = getIntent().getExtras().getString("Item_Name");
+        itemNum = IntroActivity.productDataController.getItemNum(itemKey);
         itemPrice = IntroActivity.productDataController.getPrice(itemKey);
         itemImage = IntroActivity.productDataController.getImage(itemKey);
         itemCategory = IntroActivity.productDataController.getCategory(itemKey);
@@ -60,8 +63,13 @@ public class GoodsActivity extends Activity {
         textView_price.setText(String.valueOf(itemPrice));
         imageView.setImageResource(itemImage);
         textView_total.setText(String.valueOf(Integer.parseInt(numberPicker.getText().toString())*itemPrice));
+        IntroActivity.analyzer.timeCheckerStart(context,itemNum);
     }
-
+    @Override
+    protected void onPause(){
+        super.onPause();
+        IntroActivity.analyzer.timeCheckerEnd(context,itemNum);
+    }
     private void setFindViewById(){
         searchBar = (EditText) findViewById(R.id.searchBar);
         searchButton = (ImageButton) findViewById(R.id.searchButton);

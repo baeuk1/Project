@@ -73,7 +73,6 @@ public class ListActivity extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -81,8 +80,13 @@ public class ListActivity extends Activity {
         keyword = thisIntent.getExtras().getString("Keyword");
         itemDataLoad();
         setOnClickListener();
+        IntroActivity.analyzer.timeCheckerStart(context);
     }
-
+    @Override
+    protected void onPause(){
+        super.onPause();
+        IntroActivity.analyzer.timeCheckerEnd(context);
+    }
     private void itemDataLoad() {
         for (int i = 0; i < MAXITEMS; i++) {
             productImages[i] = 0;
@@ -93,7 +97,6 @@ public class ListActivity extends Activity {
         if (keyword.equals("과일") || keyword.equals("잡화") || keyword.equals("문구")
                 || keyword.equals("가전") || keyword.equals("식품") || keyword.equals("청소")) {
             int category = getCategoryNumber(keyword);
-            Log.d("Baeuk", "Category : " + String.valueOf(category));
             if (category == -1) {
                 Log.d("Baeuk", "getCategoryNumber returns -1");
             } else {
@@ -131,7 +134,6 @@ public class ListActivity extends Activity {
     }
 
     private int getCategoryNumber(String keyword) {
-        Log.d("Baeuk", "Length : " + categoryNames.length);
         for (int i = 0; i < categoryNames.length; i++)
             if (keyword.equals(categoryNames[i])) return i;
         return -1;
@@ -178,7 +180,6 @@ public class ListActivity extends Activity {
             }
         });
         for(int i=0; i<MAXITEMS; i++) putCartButtons[i].setOnClickListener(new SetOnclickListener(i));
-
     }
 
     public class SetOnclickListener implements View.OnClickListener{

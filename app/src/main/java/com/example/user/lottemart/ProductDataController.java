@@ -187,15 +187,16 @@ public class ProductDataController {
         return productImages;
     }
     public String[] getCategories(int category){
-        String[] categories = new String[NUMOFITEMS];
+        String[] productCategories = new String[NUMOFITEMS];
+        int count = 0;
         try {
             for (int i = 0; i < NUMOFITEMS; i++) {
                 if(productList[i].getCategory() == categoryNames[category])
-                    categories[i] = productList[i].getCategory();
+                    productCategories[count++] = productList[i].getCategory();
             }
         } catch (NullPointerException e){
         }
-        return categories;
+        return productCategories;
     }
     public String[] getCategories(String keyword){
         String[] productCategories = new String[NUMOFITEMS];

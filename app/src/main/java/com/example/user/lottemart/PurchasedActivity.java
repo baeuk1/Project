@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,7 +70,17 @@ public class PurchasedActivity extends Activity {
             if(purchasedItemNum[i] != -1) IntroActivity.analyzer.savePurchasedInfo(purchasedItemNum[i], purchasedNames[i],
                     purchasedCount[i], purchasedPrices[i], purchasedCategory[i], IntroActivity.analyzer.getDate().toString());
         }
-        IntroActivity.analyzer.sendData();
+        //IntroActivity.analyzer.sendData();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        IntroActivity.analyzer.timeCheckerStart(context);
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        IntroActivity.analyzer.timeCheckerEnd(context);
     }
     private void setFindViewById(){
         searchBar = (EditText) findViewById(R.id.searchBar);

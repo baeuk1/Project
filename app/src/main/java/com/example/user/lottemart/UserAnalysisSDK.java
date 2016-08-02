@@ -41,8 +41,10 @@ public class UserAnalysisSDK {
     private JSONArray searchCount;
 
     private Context callerContext;
+    private String currentContext;
     private long startTime = 0;
     private long finishTime = 0;
+    private int parameterTime = 10000;
 
     private URLConnection urlConnection = null;
     private ObjectOutputStream objectOutputStream;
@@ -59,13 +61,13 @@ public class UserAnalysisSDK {
         private void sender() throws IOException, NullPointerException{
             while(true) {
                 if (sendingFlag == true){
+                    String temp = infoCarrier.toString();
+                    Log.d("Baeuk", temp);
                     urlConnection = url.openConnection(); // might occurs NullPointerException
                     urlConnection.setDoOutput(true);
                     urlConnection.setRequestProperty("Content-Type", "text/html; charset=EUC-KR");
                     objectOutputStream = new ObjectOutputStream(urlConnection.getOutputStream());
 
-                    String temp = infoCarrier.toString();
-                    Log.d("Baeuk", temp);
                     write(temp);
                     urlConnection.getInputStream();
                     sendingFlag = false;
@@ -92,6 +94,7 @@ public class UserAnalysisSDK {
     class TimerThread extends Thread{
         long startTime;
         long currentTime;
+
         public TimerThread(){
             startTime = System.currentTimeMillis();
         }
@@ -99,15 +102,20 @@ public class UserAnalysisSDK {
         public void run(){
             while(true){
                 currentTime = System.currentTimeMillis();
+                if(isTimeOver(parameterTime)) sendData();
             }
         }
         public boolean isTimeOver(int time){
-            if((currentTime - startTime) > time) return true;
+            if((currentTime - startTime) > time){
+                startTime = currentTime;
+                return true;
+            }
             else return false;
         }
     }
-    public UserAnalysisSDK(URL url, Context callerContext){
+    public UserAnalysisSDK(URL url, Context callerContext, int timeOut){
         this.callerContext = callerContext;
+        parameterTime = timeOut;
         memoryAllocate();
         connectionThread = new ConnectionThread(url);
         connectionThread.start();
@@ -149,7 +157,6 @@ public class UserAnalysisSDK {
     }
     @TargetApi(19)
     private void freeMemory(){
-        Log.d("Baeuk",String.valueOf(activityName.length()));
         int activityLength = activityName.length();
         int searchLength = searchKeyword.length();
         int purchasedLength = purchasedName.length();
@@ -174,7 +181,6 @@ public class UserAnalysisSDK {
         // ★ 기존 앱 초기 화면의 OnDestroy()에서 호출
         // ★ SDK의 isOverSize(int size) 가 참인 경우 호출
         sendingFlag = true;
-        Log.d("Baeuk",infoCarrier.toString());
         return true;
     }
     public boolean connectionDestroy(){
@@ -194,32 +200,28 @@ public class UserAnalysisSDK {
         }
         return true;
     }
-    public long timeCheckerStart(){
+    public String getExitActivity(){
+        return currentContext;
+    }
+    public long timeCheckerStart(Context context){
         startTime = System.currentTimeMillis();
+        currentContext = context.getClass().getSimpleName();
         return startTime;
     }
-    public long timeCheckerEnd(){
+    public long timeCheckerStart(Context context, int itemNum){
+        startTime = System.currentTimeMillis();
+        currentContext = context.getClass().getSimpleName()+"_"+String.valueOf(itemNum);
+        return startTime;
+    }
+    public long timeCheckerEnd(Context context){
         finishTime = System.currentTimeMillis();
+        saveActivityInfo(context);
         return finishTime;
     }
-    public boolean saveLoginInfo(String userID, String gender, int age, String area, String job,
-                                 String deviceName, int androidVersion, String loginTime){
-        // ★ Login Button의 OnclickListener() 혹은 Login 직후의 Activity의 OnCreate()에 삽입
-        // * APP 시작시 미리 로그인 되어있는 경우, 최초의 Activity의 OnCreate()에 삽입
-        try {
-            infoCarrier.put("userID",userID);
-            infoCarrier.put("gender",gender);
-            infoCarrier.put("age",age);
-            infoCarrier.put("area",area);
-            infoCarrier.put("job",job);
-            infoCarrier.put("deviceName",deviceName);
-            infoCarrier.put("androidVersion",androidVersion);
-            infoCarrier.put("loginTime",loginTime);
-        } catch (JSONException e) {
-            Toast.makeText(callerContext,"Save LoginInfo Failed.",Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
+    public long timeCheckerEnd(Context context, int itemNum){
+        finishTime = System.currentTimeMillis();
+        saveActivityInfo(context,itemNum);
+        return finishTime;
     }
     public boolean saveActivityInfo(Context context){
         int stayingTime = (int) (finishTime - startTime) / 1000;
@@ -245,6 +247,25 @@ public class UserAnalysisSDK {
             infoCarrier.put("Activity_Time",activityTime);
         } catch (JSONException e) {
             Toast.makeText(callerContext,"Save ActivityInfo Failed.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+    public boolean saveLoginInfo(String userID, String gender, int age, String area, String job,
+                                 String deviceName, int androidVersion, String loginTime){
+        // ★ Login Button의 OnclickListener() 혹은 Login 직후의 Activity의 OnCreate()에 삽입
+        // * APP 시작시 미리 로그인 되어있는 경우, 최초의 Activity의 OnCreate()에 삽입
+        try {
+            infoCarrier.put("userID",userID);
+            infoCarrier.put("gender",gender);
+            infoCarrier.put("age",age);
+            infoCarrier.put("area",area);
+            infoCarrier.put("job",job);
+            infoCarrier.put("deviceName",deviceName);
+            infoCarrier.put("androidVersion",androidVersion);
+            infoCarrier.put("loginTime",loginTime);
+        } catch (JSONException e) {
+            Toast.makeText(callerContext,"Save LoginInfo Failed.",Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -282,13 +303,14 @@ public class UserAnalysisSDK {
         }
         return true;
     }
-    public boolean saveExitActivityInfo(Context context){
+    public boolean saveExitActivityInfo(){
         try {
-            infoCarrier.put("exit_Activity",context.getClass().getSimpleName());
+            infoCarrier.put("Exit_Activity",currentContext);
         } catch (JSONException e) {
             Toast.makeText(callerContext,"Save ExitActivityInfo Failed.",Toast.LENGTH_SHORT).show();
             return false;
         }
+        sendData();
         return true;
     }
     public boolean isOverSize(int size) {

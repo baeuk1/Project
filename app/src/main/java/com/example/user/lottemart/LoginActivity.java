@@ -57,15 +57,12 @@ public class LoginActivity extends Activity {
                 pw = text_pw.getText().toString();
 
                 int customerIndex = customerDataLoader.isIdValid(id);
-                Log.d("Baeuk","customerIndex"+customerIndex);
                 if(customerIndex >= 0){
                     gender = customerDataLoader.getGender(customerIndex);
                     age = customerDataLoader.getAge(customerIndex);
                     area = customerDataLoader.getArea(customerIndex);
                     job = customerDataLoader.getJob(customerIndex);
                     IntroActivity.analyzer.saveLoginInfo(id,gender,age,area,job,Build.DEVICE,Build.VERSION.SDK_INT,IntroActivity.analyzer.getDate());
-                    IntroActivity.analyzer.timeCheckerEnd();
-                    IntroActivity.analyzer.saveActivityInfo(context);
 
                     Intent intent = new Intent(context,CategoryActivity.class);
                     startActivity(intent);
@@ -79,12 +76,22 @@ public class LoginActivity extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
-    public void onResume(){
+    @Override
+    protected void onResume(){
         super.onResume();
-        IntroActivity.analyzer.timeCheckerStart();
+        IntroActivity.analyzer.timeCheckerStart(context);
     }
-
+    @Override
+    protected void onPause(){
+        super.onPause();
+        IntroActivity.analyzer.timeCheckerEnd(context);
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        IntroActivity.analyzer.saveExitActivityInfo();
+        Log.d("Baeuk",IntroActivity.analyzer.getExitActivity());
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -124,8 +131,5 @@ public class LoginActivity extends Activity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
-    public void onDestroy(){
-        super.onDestroy();
-        IntroActivity.analyzer.connectionDestroy();
-    }
+
 }

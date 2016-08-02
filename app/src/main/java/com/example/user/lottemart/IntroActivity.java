@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
@@ -28,7 +29,7 @@ public class IntroActivity extends Activity{
         } catch (MalformedURLException e) {
             Toast.makeText(this,"Wrong URL to connect to statistics server.",Toast.LENGTH_SHORT).show();
         }
-        analyzer = new UserAnalysisSDK(url,this);
+        analyzer = new UserAnalysisSDK(url,this,10000);
         productDataController = new ProductDataController(this);
         InnerClassHandler noLeakHandler = new InnerClassHandler(this);
         noLeakHandler.sendEmptyMessageDelayed(0, 2000); // 2초 뒤에 메시지 전달
