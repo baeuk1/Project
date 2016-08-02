@@ -21,15 +21,7 @@ import java.util.Locale;
  * Created by user on 2016-07-13.
  */
 public class UserAnalysisSDK {
-    private final int NUMOFACTDATA = 2;
-    private final int NUMOFPURCHASEDDATA = 4;
-    private final int NUMOFSEARCHDATA = 2;
-
     private JSONObject infoCarrier;
-    private JSONArray[] activityInfo;
-    private JSONArray[] purchasedInfo;
-    private JSONArray[] searchInfo;
-
     private JSONArray activityName;
     private JSONArray activityTime;
     private JSONArray purchasedNum;
@@ -45,6 +37,7 @@ public class UserAnalysisSDK {
     private long startTime = 0;
     private long finishTime = 0;
     private int parameterTime = 10000;
+    private int parameterDataSize = 1000;
 
     private URLConnection urlConnection = null;
     private ObjectOutputStream objectOutputStream;
@@ -103,6 +96,10 @@ public class UserAnalysisSDK {
             while(true){
                 currentTime = System.currentTimeMillis();
                 if(isTimeOver(parameterTime)) sendData();
+                if(isOverSize(parameterDataSize)){
+                    Log.d("Baeuk",String.valueOf(parameterDataSize));
+                    sendData();
+                }
             }
         }
         public boolean isTimeOver(int time){
@@ -112,6 +109,24 @@ public class UserAnalysisSDK {
             }
             else return false;
         }
+    }
+    public UserAnalysisSDK(URL url, Context callerContext){
+        this.callerContext = callerContext;
+        memoryAllocate();
+        connectionThread = new ConnectionThread(url);
+        connectionThread.start();
+        timerThread = new TimerThread();
+        timerThread.start();
+    }
+    public UserAnalysisSDK(URL url, Context callerContext, int timeOut, int maxDataSize){
+        this.callerContext = callerContext;
+        parameterTime = timeOut;
+        parameterDataSize = maxDataSize;
+        memoryAllocate();
+        connectionThread = new ConnectionThread(url);
+        connectionThread.start();
+        timerThread = new TimerThread();
+        timerThread.start();
     }
     public UserAnalysisSDK(URL url, Context callerContext, int timeOut){
         this.callerContext = callerContext;
@@ -315,9 +330,8 @@ public class UserAnalysisSDK {
     }
     public boolean isOverSize(int size) {
         Log.i("SizeOf",String.valueOf(sizeOf(infoCarrier)));
-        int objectSize = sizeOf(this);
+        int objectSize = sizeOf(infoCarrier);
         if(objectSize <= -1) return false;  // 객체가 비어있으면 false 반환
-        else if(objectSize == 0) return true;  // ObjectOutputStream을 만들 메모리도 없는 심각한 상황이므로 true 반환
         else if(objectSize >= size) return true; // 사용자가 지정한 size를 초과하면 true 반환
         else return false;
     }
