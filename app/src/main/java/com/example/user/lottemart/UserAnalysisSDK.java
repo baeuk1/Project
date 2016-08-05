@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -143,11 +142,6 @@ public class UserAnalysisSDK {
     private boolean memoryAllocate(){
         try {
             infoCarrier = new JSONObject();
-            /*
-            activityInfo = new JSONArray[NUMOFACTDATA];
-            purchasedInfo = new JSONArray[NUMOFPURCHASEDDATA];
-            searchInfo = new JSONArray[NUMOFSEARCHDATA];
-            */
             activityName = new JSONArray();
             activityTime = new JSONArray();
             purchasedNum = new JSONArray();
@@ -194,6 +188,7 @@ public class UserAnalysisSDK {
     }
     public boolean sendData() {
         // ★ 기존 앱 초기 화면의 OnDestroy()에서 호출
+        // ★ 일정 시간마다 호출
         // ★ SDK의 isOverSize(int size) 가 참인 경우 호출
         sendingFlag = true;
         return true;

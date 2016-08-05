@@ -4,7 +4,6 @@ package com.example.user.lottemart;
  * Created by user on 2016-07-11.
  */
 public class Customer {
-    public static int numOfProperty = 5;
     private String id;
     private String gender;
     private int age;

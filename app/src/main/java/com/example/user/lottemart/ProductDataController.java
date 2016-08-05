@@ -1,8 +1,6 @@
 package com.example.user.lottemart;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -38,15 +36,6 @@ public class ProductDataController {
         cartItemNumbers = new int[MAXCARTITEMS];
         cartTotalPrices = new int[MAXCARTITEMS];
         cartItemCategories = new String[MAXCARTITEMS];
-
-        for(int i=0; i<MAXCARTITEMS; i++){
-            cartItemNames[i] = "";
-            cartItemPrices[i] = 0;
-            cartItemNumbers[i] = -1;
-            cartTotalPrices[i] = 0;
-            cartItemCategories[i] = "";
-        }
-        cartWholePrice = 0;
     }
     public boolean putItemIntoCart(int image, String itemKey, int price, int num, String category){
         if(cartCount >= 4){

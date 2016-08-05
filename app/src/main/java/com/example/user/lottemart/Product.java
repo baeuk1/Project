@@ -1,9 +1,5 @@
 package com.example.user.lottemart;
 
-import android.media.Image;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 /**
  * Created by user on 2016-07-20.
  */

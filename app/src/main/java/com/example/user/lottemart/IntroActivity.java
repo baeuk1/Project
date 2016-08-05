@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.Toast;
-
 import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
